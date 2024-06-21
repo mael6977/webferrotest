@@ -1,6 +1,6 @@
 import { version } from './version';
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3200',
+  apiUrl: 'https://servicesferretest.onrender.com/',
   version: version
 };
