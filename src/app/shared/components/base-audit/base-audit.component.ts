@@ -36,9 +36,10 @@ export class BaseAuditComponent implements OnInit {
   public nextStepId: number | undefined = 0;
   public currentStepId: number | undefined = 0;
   public previousStepId: number | undefined = -1;
+  private countFridge: number = 0;
   private readonly steps = steps;
   private readonly componentClasses = componentClasses;
-  private receivedQuestion!: any;
+  private receivedQuestion!: Question;
   private hasNewQuestion!: boolean;
 
   survey$: Observable<Question[] | null> = this.store.select(
@@ -57,6 +58,7 @@ export class BaseAuditComponent implements OnInit {
 
   public nextStep() {
     if (this.hasNewQuestion) {
+      this.receivedQuestion.id = this.validId();
       this.store.dispatch(addQuestion({ question: this.receivedQuestion }));
       this.hasNewQuestion = false;
     }
@@ -70,12 +72,22 @@ export class BaseAuditComponent implements OnInit {
     }
   }
 
+  private validId(): string | undefined {
+    let newId = this.receivedQuestion.id;
+    if ([7, 8, 9].includes(this.currentStepId!)) {
+      newId = newId! + '.' + this.countFridge;
+      console.log('new id', newId);
+      console.log('current step', this.currentStepId);
+    }
+    return newId;
+  }
+
   private clearDynamicContainer() {
     this.dynamicContainer.clear();
   }
 
   private async getNextStep() {
-    if (this.currentStepId === 9) {
+    if (this.currentStepId === 9 && this.countFridge < 2) {
       const searchQuestion = () =>
         this.survey$.pipe(
           map((questions) => questions?.filter((item) => item.id === '4'))
@@ -108,7 +120,9 @@ export class BaseAuditComponent implements OnInit {
     ) {
       ref.instance.optionsSelected.subscribe(
         (selectedOption: GenericResponse) => {
-          console.log("selectedOption", selectedOption)
+          if (selectedOption.selectOption === '5') {
+            this.addFridge();
+          }
           if (selectedOption.Question?.id) {
             this.hasNewQuestion = true;
             this.receivedQuestion = selectedOption.Question;
@@ -161,8 +175,14 @@ export class BaseAuditComponent implements OnInit {
     }
   }
 
+  private addFridge(): void {
+    this.countFridge = this.countFridge + 1;
+    console.log('countBridge', this.countFridge);
+  }
+
   private loadComponent() {
     this.clearDynamicContainer();
+
     this.getNextStep().then((step) => {
       if (!step) {
         return;
