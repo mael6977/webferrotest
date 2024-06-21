@@ -1,0 +1,18 @@
+<div class="report-downloader">
+  <h1 class="report-downloader_title">Selecciona tu fecha de corte</h1>
+  <div class="report-downloader_container-datapicker">
+    <mat-form-field>
+      <input matInput [matDatepicker]="startPicker" placeholder="Fecha inicio">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="endPicker" placeholder="Fecha final">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <button class="report-downloader_button">Descargar Reporte</button>
+</div>
+

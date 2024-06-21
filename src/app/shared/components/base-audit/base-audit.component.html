@@ -1,0 +1,19 @@
+<div class="base-audit">
+  <ng-template #dynamicContainer class="dynamicContainer"></ng-template>
+  <div class="base-audit_container-buttons">
+    <button
+      (click)="nextStep()"
+      class="flex min-w-60 sm:min-w-96 justify-center rounded-md bg-yellow-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-900 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+    >
+      Continuar
+    </button>
+    <!--<button
+      type="button"
+      (click)="prevStep()"
+      class="text-sm block m-auto mt-3 font-semibold leading-6 text-gray- invisible"
+      [ngClass]="{'invisible': previousStepId === -1}"
+    >
+      Regresar
+    </button>-->
+  </div>
+</div>

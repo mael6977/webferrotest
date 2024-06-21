@@ -1,0 +1,85 @@
+<div class="sing-in">
+  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <mat-icon
+      aria-hidden="false"
+      class="text-center block m-auto bg-slate-100 text-zinc-600 rounded-full"
+      aria-label="Example home icon"
+      fontIcon="person"
+      style="
+        padding: 7px;
+        width: 46px;
+        height: 46px;
+        font-size: 28px;
+        margin-bottom: 20px;
+      "
+    />
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <h2
+        class="mt-6 text-center text-xl font-bold leading-9 tracking-tight text-gray-900"
+      >
+        Ingresa tus Datos para inciar sesión
+      </h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium leading-6 text-gray-900"
+            >Correo electronico</label
+          >
+          <div class="mt-2">
+            <input
+              id="email"
+              name="email"
+              formControlName="email"
+              type="email"
+              autocomplete="email"
+              required
+              style="text-indent: 5px;"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+          @if(showEmailError){<span class="error-message">Email Error</span>}
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <label
+              for="password"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Contraseña</label
+            >
+          </div>
+          <div class="mt-2">
+            <input
+              id="password"
+              name="password"
+              formControlName="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              style="text-indent: 5px;"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+          @if(showPasswordError){<span class="error-message"
+            >Password Error</span
+          >}
+        </div>
+
+        <div>
+          @if(showGeneralError){<span class="error-message">General Error</span
+          >}
+          <button
+            type="submit"
+            class="flex w-full justify-center rounded-md bg-yellow-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-900 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Ingresar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

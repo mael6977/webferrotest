@@ -1,0 +1,33 @@
+<div class="select-query">
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Example home icon"
+    fontIcon="shopping_cart"
+    style="
+      width: 32px;
+      height: 32px;
+      color: #59200a;
+      font-size: 28px;
+      margin-bottom: 5px;
+    "
+  ></mat-icon>
+  <h1 class="select-query_title">{{ dataRequest.title }}</h1>
+  <div class="select-query_container-options">
+    <select id="province" name="province" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6" (change)="onProvinceChange($event)">
+      <option selected disabled>Provincia</option>
+      <option *ngFor="let province of provinces" [value]="province">{{ province }}</option>
+    </select>
+    <select id="locality" name="locality" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6" (change)="onLocalityChange($event)">
+      <option selected disabled>Localidad</option>
+      <option *ngFor="let locality of localities" [value]="locality">{{ locality }}</option>
+    </select>
+    <select id="establishment" name="establishment" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6" (change)="onEstablishmentChange($event)">
+      <option selected disabled>Establecimiento</option>
+      <option *ngFor="let establishment of establishments" [value]="establishment">{{ establishment }}</option>
+    </select>
+    <select id="address" name="address" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6" (change)="onAddressChange($event)">
+      <option selected disabled>Dirección</option>
+      <option *ngFor="let address of addresses" [value]="address">{{ address }}</option>
+    </select>
+  </div>
+</div>

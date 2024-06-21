@@ -1,0 +1,17 @@
+<div class="simple-selection">
+  <span class="simple-selection_icon" aria-hidden="false" aria-label="question icon">{{ dataRequest.numberQuestion }}</span>
+  <h1 class="simple-selection_title">{{ dataRequest.title }}</h1>
+  <p class="simple-selection_subtitle">{{ dataRequest.subTitle }}</p>
+  <div class="simple-selection_container">
+    <button class="button-options" [ngClass]="{'selected': select1}" (click)="selectOption1(firstOptionText)">{{ firstOptionText }}</button>
+    <button class="button-options" [ngClass]="{'selected': select2}" (click)="selectOption2(secondOptionText)">{{ secondOptionText }}</button>
+  </div>
+  @if(showTextBox){
+    <div class="col-span-full">
+      <label for="Comment" class="block text-sm font-medium leading-6 text-gray-900">Añade un comentario</label>
+      <div class="mt-2">
+        <textarea [(ngModel)]="comment" id="Comment" name="Comment" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" on-focusout="emit()"></textarea>
+      </div>
+    </div>
+  }
+</div>

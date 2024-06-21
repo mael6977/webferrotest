@@ -1,0 +1,177 @@
+<div class="init-state min-w-60 sm:min-w-96 text-center">
+  <mat-icon
+    aria-hidden="false"
+    class="text-center block m-auto bg-slate-100 text-zinc-600 rounded-full"
+    aria-label="Example home icon"
+    fontIcon="shopping_cart"
+    style="
+      padding: 7px;
+      width: 46px;
+      height: 46px;
+      font-size: 28px;
+      margin-bottom: 20px;
+    "
+  />
+
+  <h2 class="text-base font-semibold leading-7 text-gray-900">{{ dataRequest.title }}</h2>
+  <p class="mt-1 text-sm leading-6 text-gray-600">{{ dataRequest.subTitle }}</p>
+
+  <fieldset class="w-full">
+    <div class="mt-6 flex flex-col">
+      <!-- Active: "border-indigo-600 ring-2 ring-indigo-600", Not Active: "border-gray-300" -->
+      <label
+        aria-label="Revisión 1"
+        aria-description="Last message sent an hour ago to 621 users"
+        class="relative flex rounded-lg border bg-white p-4 mb-4 "
+        [ngClass]="{'cursor-pointer border-yellow-800 ring-2 ring-yellow-800': audits === 0}"
+      >
+        <input
+          type="radio"
+          name="project-type"
+          value="Revisión 1"
+          class="sr-only"
+        />
+        <span class="flex flex-1">
+          <span class="flex flex-col">
+            <span class="block text-sm font-medium text-gray-900"
+              >Revisión 1</span
+            >
+            <span
+            *ngIf="audits === 0"
+            class="inline-flex items-center mt-4 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+            >Pendiente</span
+          >
+            <span
+              *ngIf="audits > 0"
+              class="inline-flex mt-4 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+              >Completado</span
+            >
+          </span>
+        </span>
+        <!-- Not Checked: "invisible" -->
+        <!-- <svg
+          class="h-5 w-5 text-green-500"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+            clip-rule="evenodd"
+          />
+        </svg> -->
+        <!--
+          Active: "border", Not Active: "border-2"
+          Checked: "border-indigo-600", Not Checked: "border-transparent"
+        -->
+        <span
+          class="pointer-events-none absolute -inset-px rounded-lg border-2"
+          aria-hidden="true"
+        ></span>
+      </label>
+      <!-- Active: "border-indigo-600 ring-2 ring-indigo-600", Not Active: "border-gray-300" -->
+      <label
+        aria-label="Revisión 2"
+        aria-description="Last message sent 2 weeks ago to 1200 users"
+        class="relative flex rounded-lg border mb-4 bg-white p-4 opacity-30 cursor-not-allowed shadow-sm focus:outline-none"
+        [ngClass]="{'cursor-pointer border-yellow-800 ring-2 ring-yellow-800': audits === 1}"
+      >
+        <input
+          type="radio"
+          name="project-type"
+          value="Revisión 2"
+          class="sr-only"
+        />
+        <span class="flex flex-1">
+          <span class="flex flex-col">
+            <span class="block text-sm font-medium text-gray-900"
+              >Revisión 2</span
+            >
+            <span
+              class="inline-flex items-center mt-4 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+              >Pendiente</span
+            >
+            <span
+              *ngIf="audits > 1"
+              class="inline-flex mt-4 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+              >Completado</span
+            >
+          </span>
+        </span>
+        <!-- Not Checked: "invisible" -->
+        <svg
+          class="h-5 w-5 text-indigo-600 invisible"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <!--
+          Active: "border", Not Active: "border-2"
+          Checked: "border-indigo-600", Not Checked: "border-transparent"
+        -->
+        <span
+          class="pointer-events-none absolute -inset-px rounded-lg border-2"
+          aria-hidden="true"
+        ></span>
+      </label>
+      <!-- Active: "border-indigo-600 ring-2 ring-indigo-600", Not Active: "border-gray-300" -->
+      <label
+        aria-label="Revisión 3"
+        aria-description="Last message sent 4 days ago to 2740 users"
+        class="relative flex rounded-lg mb-4 border bg-white border-gray-300 opacity-30 cursor-not-allowed p-4 shadow-sm focus:outline-none"
+        [ngClass]="{'cursor-pointer border-yellow-800 ring-2 ring-yellow-800': audits === 2}"
+      >
+        <input
+          type="radio"
+          name="project-type"
+          value="Revisión 3"
+          class="sr-only"
+        />
+        <span class="flex flex-1">
+          <span class="flex flex-col">
+            <span class="block text-sm font-medium text-gray-900"
+              >Revisión 3</span
+            >
+            <span
+              class="inline-flex items-center mt-4 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+              >Pendiente</span
+            >
+            <span
+              *ngIf="audits > 2"
+              class="inline-flex mt-4 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+              >Completado</span
+            >
+          </span>
+        </span>
+        <!-- Not Checked: "invisible" -->
+        <svg
+          class="h-5 w-5 text-indigo-600 invisible"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <!--
+          Active: "border", Not Active: "border-2"
+          Checked: "border-indigo-600", Not Checked: "border-transparent"
+        -->
+        <span
+          class="pointer-events-none absolute -inset-px rounded-lg border-2"
+          aria-hidden="true"
+        ></span>
+      </label>
+    </div>
+  </fieldset>
+</div>

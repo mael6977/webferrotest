@@ -1,0 +1,82 @@
+<div class="check">
+  <span aria-hidden="false" class="check_icon">{{
+    dataRequest.numberQuestion
+  }}</span>
+  <h1 class="check_title">{{ dataRequest.title }}</h1>
+  <p class="check_subtitle">{{ dataRequest.subTitle }}</p>
+  <div class="check_container-options">
+    <fieldset>
+      <legend class="sr-only">Notifications</legend>
+      <div class="space-y-5">
+        <div class="relative flex items-start">
+          <div class="flex h-6 items-center">
+            <input
+              id="check1"
+              aria-describedby="comments-description"
+              name="comments"
+              type="checkbox"
+              class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              (change)="onCheckboxChange($event, dataRequest.check1!)"
+            />
+          </div>
+          <div class="ml-3 text-sm leading-6">
+            <label for="check1" class="font-medium text-gray-900">{{
+              dataRequest.check1
+            }}</label>
+          </div>
+        </div>
+        <div class="relative flex items-start">
+          <div class="flex h-6 items-center">
+            <input
+              id="check2"
+              aria-describedby="candidates-description"
+              name="candidates"
+              type="checkbox"
+              class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              (change)="onCheckboxChange($event, dataRequest.check2!)"
+            />
+          </div>
+          <div class="ml-3 text-sm leading-6">
+            <label for="check2" class="font-medium text-gray-900">{{
+              dataRequest.check2
+            }}</label>
+          </div>
+        </div>
+        <div class="relative flex items-start">
+          <div class="flex h-6 items-center">
+            <input
+              id="check3"
+              aria-describedby="offers-description"
+              name="offers"
+              type="checkbox"
+              class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              (change)="onCheckboxChange($event, dataRequest.check3!)"
+            />
+          </div>
+          <div class="ml-3 text-sm leading-6">
+            <label for="check3" class="font-medium text-gray-900">{{
+              dataRequest.check3
+            }}</label>
+          </div>
+        </div>
+        <div class="relative flex items-start">
+          <div class="flex h-6 items-center">
+            <input
+              id="check4"
+              aria-describedby="offers-description"
+              name="offers"
+              type="checkbox"
+              class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              (change)="onCheckboxChange($event, dataRequest.check4!)"
+            />
+          </div>
+          <div class="ml-3 text-sm leading-6">
+            <label for="check4" class="font-medium text-gray-900">{{
+              dataRequest.check4
+            }}</label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
