@@ -15,3 +15,6 @@ export const updateComment = createAction(
   '[Survey] Update Comment',
   props<{ id: string; comment: string }>()
 );
+export const ResetComment = createAction(
+  '[Survey] Reset Suervey'
+);

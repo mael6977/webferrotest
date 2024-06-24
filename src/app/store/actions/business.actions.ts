@@ -12,3 +12,6 @@ export const setSelectedBusiness = createAction(
     audits: []
   }>()
 );
+export const resetBusiness = createAction(
+  '[Audit Flow] Reset Business'
+);

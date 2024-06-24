@@ -20,31 +20,41 @@ export class BusinessInfoService {
     return this.http.get(`${this.baseUrl}/businessInfo/search`, { params });
   }
 
-  getEstablishments(province: string, locality: string): Observable<any> {
+  getDistributors(province: string, locality: string): Observable<any> {
     const params = new HttpParams()
       .set('province', province)
       .set('locality', locality);
     return this.http.get(`${this.baseUrl}/businessInfo/search`, { params });
   }
 
-  getAddresses(province: string, locality: string, establishment: string): Observable<any> {
+  getEstablishments(province: string, locality: string, distributor: string, address: string): Observable<any> {
     const params = new HttpParams()
       .set('province', province)
       .set('locality', locality)
-      .set('establishment', establishment);
+      .set('distributor', distributor)
+      .set('address', address);
     return this.http.get(`${this.baseUrl}/businessInfo/search`, { params });
   }
 
-  getResults(province: string, locality: string, establishment: string, address: string): Observable<any> {
+  getAddresses(province: string, locality: string, distributor: string ): Observable<any> {
     const params = new HttpParams()
       .set('province', province)
       .set('locality', locality)
+      .set('distributor', distributor)
+    return this.http.get(`${this.baseUrl}/businessInfo/search`, { params });
+  }
+
+  getResults(province: string, locality: string, distributor: string, establishment: string, address: string): Observable<any> {
+    const params = new HttpParams()
+      .set('province', province)
+      .set('locality', locality)
+      .set('distributor', distributor)
       .set('establishment', establishment)
       .set('address', address);
     return this.http.get(`${this.baseUrl}/businessInfo/search`, { params });
   }
 
-  getEstablishmentsSelected(id:string){
-    return this.http.get(`${this.baseUrl}/businessInfo/`+ id);
+  getBusinessInfoById(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/businessInfo/${id}`);
   }
 }

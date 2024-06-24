@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { addQuestion, updateAnswer, updateComment } from '../actions/survey.actions';
+import { addQuestion, ResetComment, updateAnswer, updateComment } from '../actions/survey.actions';
 
 export interface Question {
   id: string | undefined;
@@ -33,5 +33,9 @@ export const surveyReducer = createReducer(
     survey: state.survey.map(q =>
       q.id === id ? { ...q, comment } : q
     )
+  })),
+  on(ResetComment, (state) => ({
+    ...state,
+    survey: []
   }))
 );

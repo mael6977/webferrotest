@@ -41,6 +41,8 @@ export class BaseAuditComponent implements OnInit {
   private readonly componentClasses = componentClasses;
   private receivedQuestion!: Question;
   private hasNewQuestion!: boolean;
+  public showButton: number = 0;
+
 
   survey$: Observable<Question[] | null> = this.store.select(
     (state) => state.survey.survey
@@ -61,6 +63,16 @@ export class BaseAuditComponent implements OnInit {
       this.receivedQuestion.id = this.validId();
       this.store.dispatch(addQuestion({ question: this.receivedQuestion }));
       this.hasNewQuestion = false;
+      if (this.receivedQuestion.id == "1" && this.receivedQuestion.answer == "NO" || this.receivedQuestion.id == "2" && this.receivedQuestion.answer == "NO" || this.receivedQuestion.id == "8") {
+        this.auditService.postAudit().subscribe(
+          response => {
+            console.log('Audit created successfully', response);
+          },
+          error => {
+            console.error('Error creating audit', error);
+          }
+        );
+      }
     }
     this.loadComponent();
   }
@@ -126,42 +138,6 @@ export class BaseAuditComponent implements OnInit {
           if (selectedOption.Question?.id) {
             this.hasNewQuestion = true;
             this.receivedQuestion = selectedOption.Question;
-            if (selectedOption.Question.id == "1" && selectedOption.Question.answer == "No" || selectedOption.Question.id == "2" && selectedOption.Question.answer == "No") {
-              this.survey$.subscribe((state) => {
-                console.log('Survey state:', state);
-                const auditData = {
-                  auditor: '60c72b2f5f1b2c6d88f72e56',
-                  business: '60c72b2f5f1b2c6d88f72e57',
-                  visit: 1,
-                  answer0: "",
-                  commentAnswer0: "",
-                  answer1: "",
-                  commentAnswer1: "",
-                  answer2: "",
-                  commentAnswer2: "",
-                  answer3: "",
-                  commentAnswer3: "",
-                  answer4: "",
-                  commentAnswer4: "",
-                  answer5: "",
-                  commentAnswer5: "",
-                  answer6: "",
-                  commentAnswer6: "",
-                  answer7: "",
-                  commentAnswer7: "",
-                  answer8: "",
-                  commentAnswer8: ""
-                };
-                this.auditService.postAudit(auditData).subscribe(
-                  response => {
-                    console.log('Audit created successfully', response);
-                  },
-                  error => {
-                    console.error('Error creating audit', error);
-                  }
-                );
-              });
-            }
           }
           this.nextStepId = selectedOption.selectStep;
           if (
@@ -177,12 +153,10 @@ export class BaseAuditComponent implements OnInit {
 
   private addFridge(): void {
     this.countFridge = this.countFridge + 1;
-    console.log('countBridge', this.countFridge);
   }
 
   private loadComponent() {
     this.clearDynamicContainer();
-
     this.getNextStep().then((step) => {
       if (!step) {
         return;

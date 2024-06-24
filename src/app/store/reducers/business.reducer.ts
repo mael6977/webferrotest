@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as BusinessActions from '../actions/business.actions';
+import { resetBusiness } from '../actions/business.actions';
 
 export interface BusinessState {
   id: String | null,
@@ -32,5 +33,9 @@ export const BusinessReducer = createReducer(
     address,
     establishment,
     audits
+  })),
+  on(resetBusiness, (state) => ({
+    ...state,
+    initialBusinessState
   }))
 );

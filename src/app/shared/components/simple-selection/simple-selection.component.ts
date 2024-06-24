@@ -32,10 +32,20 @@ export class SimpleSelectionComponent implements OnInit {
   optionText!: string | undefined;
 
   comment: string = '';
-  constructor(private store: Store<AppState>) {}
+  idBusiness$!: any;
+  constructor(private store: Store<AppState>) { }
   ngOnInit() {
     this.firstOptionText = this.dataRequest.option1;
     this.secondOptionText = this.dataRequest.option2;
+    this.store.select(state => state.business).subscribe(data => {
+      if (this.dataRequest.numberQuestion == "2" && data.distributor != "CAMY") {
+        const a = "Camy";
+        const b = "Ferrero";
+        if (this.dataRequest.subTitle) {
+          this.dataRequest.subTitle = this.dataRequest.subTitle.replace(a, b);
+        }
+      }
+    });
   }
 
   selectOption1(optionText: string | undefined): void {
