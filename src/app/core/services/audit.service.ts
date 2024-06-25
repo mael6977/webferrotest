@@ -21,7 +21,6 @@ export class AuditService {
   }
 
   postAudit(): Observable<any>{
-    console.log("enviado")
     const url = `${this.baseUrl}/audits`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(url, this.auditInfo$, { headers });

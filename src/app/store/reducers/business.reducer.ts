@@ -3,12 +3,12 @@ import * as BusinessActions from '../actions/business.actions';
 import { resetBusiness } from '../actions/business.actions';
 
 export interface BusinessState {
-  id: String | null,
-  province: String | null,
-  locality: String | null,
-  distributor: String | null,
-  address: String | null,
-  establishment: String | null,
+  id: string | null,
+  province: string | null,
+  locality: string | null,
+  distributor: string | null,
+  address: string | null,
+  establishment: string | null,
   audits: [] | null
 }
 
@@ -22,17 +22,30 @@ export const initialBusinessState: BusinessState = {
   audits: null
 };
 
+function logStateChange(actionName: string, prevState: BusinessState, nextState: BusinessState) {
+  console.log(`${actionName} Action Triggered`);
+  console.log('Previous State:', prevState);
+  console.log('New State:', nextState);
+}
+
 export const BusinessReducer = createReducer(
   initialBusinessState,
-  on(BusinessActions.setSelectedBusiness, (state, { id, province, locality, distributor, address, establishment, audits }) => ({
-    ...state,
-    id,
-    province,
-    locality,
-    distributor,
-    address,
-    establishment,
-    audits
-  })),
-  on(resetBusiness, () => (initialBusinessState))
+  on(BusinessActions.setSelectedBusiness, (state, { id, province, locality, distributor, address, establishment, audits }) => {
+    const newState = {
+      ...state,
+      id,
+      province,
+      locality,
+      distributor,
+      address,
+      establishment,
+      audits
+    };
+    logStateChange('setSelectedBusiness', state, newState);
+    return newState;
+  }),
+  on(resetBusiness, state => {
+    logStateChange('resetBusiness', state, initialBusinessState);
+    return initialBusinessState;
+  })
 );

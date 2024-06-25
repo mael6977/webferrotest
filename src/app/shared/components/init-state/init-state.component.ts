@@ -44,11 +44,11 @@ export class InitStateComponent implements OnInit {
           this.selectOption();
           this.store.dispatch(updateHeaderSurvey({ establishment: data.id, auditor: this.infoUser.id, distribuitor: data.distribuitor, visit: data.audits.length}))
         } else {
-          console.error('Data is incomplete', data);
+          console.log('Data is incomplete', data);
         }
       },
       error: (error) => {
-        console.error('Error fetching business info:', error);
+        console.log('Error fetching business info:', error);
       }
     });
   }

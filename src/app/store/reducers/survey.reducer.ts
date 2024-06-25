@@ -46,33 +46,60 @@ export const initialState: SurveyState = {
   ]
 };
 
+function logStateChange(actionName: string, prevState: SurveyState, nextState: SurveyState) {
+  console.log(`${actionName} Action Triggered`);
+  console.log('Previous State:', prevState);
+  console.log('New State:', nextState);
+}
+
 export const surveyReducer = createReducer(
   initialState,
-  on(sendAudit,(state)=>({
-...state
-  })),
-  on(updateCountFridge, (state, { countFridge }) => ({
-    ...state,
-    countFridge
-  })),
-  on(updateHeaderSurvey, (state, { establishment, auditor, distribuitor, visit }) => ({
-    ...state,
-    establishment,
-    auditor,
-    distribuitor,
-    visit
-  })),
-  on(updateResultAudit, (state, { result, resultComment }) => ({
-    ...state,
-    result,
-    resultComment
-  })),
-  on(updateManyAnswer, (state, { questions }) => ({
-    ...state,
-    questions: state.questions.map(question => {
-      const updatedQuestion = questions.find(q => q.id === question.id);
-      return updatedQuestion ? { ...question, answer: updatedQuestion.answer } : question;
-    })
-  })),
-  on(resetComment, () => initialState)
+  on(sendAudit, (state) => {
+    const newState = { ...state };
+    logStateChange('sendAudit', state, newState);
+    return newState;
+  }),
+  on(updateCountFridge, (state, { countFridge }) => {
+    const newState = {
+      ...state,
+      countFridge
+    };
+    logStateChange('updateCountFridge', state, newState);
+    return newState;
+  }),
+  on(updateHeaderSurvey, (state, { establishment, auditor, distribuitor, visit }) => {
+    const newState = {
+      ...state,
+      establishment,
+      auditor,
+      distribuitor,
+      visit
+    };
+    logStateChange('updateHeaderSurvey', state, newState);
+    return newState;
+  }),
+  on(updateResultAudit, (state, { result, resultComment }) => {
+    const newState = {
+      ...state,
+      result,
+      resultComment
+    };
+    logStateChange('updateResultAudit', state, newState);
+    return newState;
+  }),
+  on(updateManyAnswer, (state, { questions }) => {
+    const newState = {
+      ...state,
+      questions: state.questions.map(question => {
+        const updatedQuestion = questions.find(q => q.id === question.id);
+        return updatedQuestion ? { ...question, answer: updatedQuestion.answer } : question;
+      })
+    };
+    logStateChange('updateManyAnswer', state, newState);
+    return newState;
+  }),
+  on(resetComment, (state) => {
+    logStateChange('resetComment', state, initialState);
+    return initialState;
+  })
 );
