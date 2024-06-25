@@ -7,7 +7,7 @@ import { BusinessInfoService } from '../../../core/services/business-info.servic
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/app.state';
 import * as BusinessActions from '../../../store/actions/business.actions';
-import { ResetComment } from '../../../store/actions/survey.actions';
+import {  sendAudit } from '../../../store/actions/survey.actions';
 
 @Component({
   selector: 'app-select-query',
@@ -36,8 +36,6 @@ export class SelectQueryComponent {
   constructor(private businessInfoService: BusinessInfoService, private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.store.dispatch(ResetComment());
-    this.store.dispatch(BusinessActions.resetBusiness());
     this.loadProvinces();
   }
 

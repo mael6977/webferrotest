@@ -11,13 +11,14 @@ import { AuthEffects } from './app/store/effects/auth.effects';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { routes } from './app/app.routes';
 import { surveyReducer } from './app/store/reducers/survey.reducer';
+import { ResourceEffects } from './app/store/effects/resource.effects';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes, withEnabledBlockingInitialNavigation()),
     provideStore({ auth: authReducer, business: BusinessReducer, survey: surveyReducer }),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, ResourceEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: true

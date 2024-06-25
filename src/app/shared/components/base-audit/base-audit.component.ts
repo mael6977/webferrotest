@@ -15,10 +15,9 @@ import {
 } from '../../../core/interface/generic.interface';
 import { componentClasses, steps } from './base-audti.config';
 import { AppState } from '../../../store/app.state';
-import { addQuestion } from '../../../store/actions/survey.actions';
-import { Question } from '../../../store/reducers/survey.reducer';
-import { Observable, firstValueFrom, map } from 'rxjs';
 import { AuditService } from '../../../core/services/audit.service';
+import { sendAudit, updateCountFridge, updateManyAnswer, updateResultAudit } from '../../../store/actions/survey.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-base-audit',
@@ -36,44 +35,46 @@ export class BaseAuditComponent implements OnInit {
   public nextStepId: number | undefined = 0;
   public currentStepId: number | undefined = 0;
   public previousStepId: number | undefined = -1;
-  private countFridge: number = 0;
+  public getStateVisit$?: Observable<any>;
+  private getStateAnswerCountFridge$: Observable<string>;
+  private getStateCountFridge$: Observable<number>;
+  public showButton: Boolean = false;
+  public selectOptions?: GenericResponse;
   private readonly steps = steps;
   private readonly componentClasses = componentClasses;
-  private receivedQuestion!: Question;
-  private hasNewQuestion!: boolean;
-  public showButton: number = 0;
+  private answerCountFridge: number = 1;
+  private countFridge: number = 0;
 
-
-  survey$: Observable<Question[] | null> = this.store.select(
-    (state) => state.survey.survey
-  );
   constructor(
     private injector: EnvironmentInjector,
     private cdr: ChangeDetectorRef,
     private store: Store<AppState>,
-    private auditService: AuditService
-  ) { }
+  ) {
+    this.getStateVisit$ = this.store.select(state => state.business.audits?.length);
+    this.getStateAnswerCountFridge$ = this.store.select(state => state.survey.questions.find(x => x.id === 8)?.answer!);
+    this.getStateCountFridge$ = this.store.select(state => state.survey.countFridge);
+  }
 
   ngOnInit() {
     this.loadComponent();
+    this.getStateAnswerCountFridge$.subscribe(data => {
+      this.answerCountFridge = Number(data);
+    });
+    this.getStateCountFridge$.subscribe(data => {
+      this.countFridge = data;
+    });
   }
 
   public nextStep() {
-    if (this.hasNewQuestion) {
-      this.receivedQuestion.id = this.validId();
-      this.store.dispatch(addQuestion({ question: this.receivedQuestion }));
-      this.hasNewQuestion = false;
-      if (this.receivedQuestion.id == "1" && this.receivedQuestion.answer == "NO" || this.receivedQuestion.id == "2" && this.receivedQuestion.answer == "NO" || this.receivedQuestion.id == "8") {
-        this.auditService.postAudit().subscribe(
-          response => {
-            console.log('Audit created successfully', response);
-          },
-          error => {
-            console.error('Error creating audit', error);
-          }
-        );
-      }
-    }
+    const questions = [{
+      id: this.selectOptions!.id,
+      answer: this.selectOptions!.answer
+    },
+    {
+      id: this.selectOptions!.idComment!,
+      answer: this.selectOptions!.comment!
+    }];
+    this.sendToStorage(questions);
     this.loadComponent();
   }
 
@@ -84,31 +85,16 @@ export class BaseAuditComponent implements OnInit {
     }
   }
 
-  private validId(): string | undefined {
-    let newId = this.receivedQuestion.id;
-    if ([7, 8, 9].includes(this.currentStepId!)) {
-      newId = newId! + '.' + this.countFridge;
-      console.log('new id', newId);
-      console.log('current step', this.currentStepId);
-    }
-    return newId;
-  }
-
   private clearDynamicContainer() {
     this.dynamicContainer.clear();
   }
 
   private async getNextStep() {
-    if (this.currentStepId === 9 && this.countFridge < 2) {
-      const searchQuestion = () =>
-        this.survey$.pipe(
-          map((questions) => questions?.filter((item) => item.id === '4'))
-        );
-      const items = await firstValueFrom(searchQuestion());
-      if (items && items.length > 0 && items[0].answer === '2') {
-        return this.steps.find((step) => step.id === 7);
-      }
+    if (this.currentStepId === 9 &&
+      this.countFridge < this.answerCountFridge) {
+      return this.steps.find((step) => step.id === 7);
     }
+
     return this.steps.find((step) => step.id === this.nextStepId);
   }
 
@@ -132,27 +118,29 @@ export class BaseAuditComponent implements OnInit {
     ) {
       ref.instance.optionsSelected.subscribe(
         (selectedOption: GenericResponse) => {
-          if (selectedOption.selectOption === '5') {
-            this.addFridge();
-          }
-          if (selectedOption.Question?.id) {
-            this.hasNewQuestion = true;
-            this.receivedQuestion = selectedOption.Question;
-          }
           this.nextStepId = selectedOption.selectStep;
-          if (
-            selectedOption.prevStep !== undefined &&
-            selectedOption.prevStep >= 0
-          ) {
+          if (selectedOption.prevStep !== undefined && selectedOption.prevStep >= 0) {
             this.previousStepId = selectedOption.prevStep;
           }
+          this.selectOptions = selectedOption;
         }
       );
     }
   }
 
-  private addFridge(): void {
+  private sendToStorage(questions: any) {
+    this.store.dispatch(updateManyAnswer({ questions }))
+  }
+
+  private sendToStorageCountFridge() {
     this.countFridge = this.countFridge + 1;
+    this.store.dispatch(updateCountFridge({ countFridge: this.countFridge }));
+  }
+
+  private sendToStorageResumen(){
+    const comment = this.selectOptions?.comment === null || this.selectOptions?.comment === undefined ? "":this.selectOptions?.comment;
+    this.store.dispatch(updateResultAudit({result:this.selectOptions?.answer!,
+      resultComment:comment!}));
   }
 
   private loadComponent() {
@@ -161,10 +149,33 @@ export class BaseAuditComponent implements OnInit {
       if (!step) {
         return;
       }
+
       this.currentStepId = step.id;
       this.previousStepId = step.data.prevStep;
+
+      if (step.data.numberQuestion === '5') {
+        this.sendToStorageCountFridge();
+        if (this.countFridge===2){
+          step.data.idQuestionStateOption1=13;
+          step.data.idQuestionStateOption2=14;
+        }
+      }
+
+      if (['1','2'].includes(this.selectOptions?.selectOption!) && this.selectOptions?.answer! === 'NO'
+          || (this.selectOptions?.selectOption! === '8')){
+        this.sendToStorageResumen();
+        this.store.dispatch(sendAudit());
+      }
+
       const ref = this.createDynamicComponent(step.component, step.data);
       this.subscribeToComponentEvents(ref);
+      this.getStateVisit$?.subscribe(data => {
+        if (this.currentStepId == 1 && data >= 2) {
+          this.showButton = true
+        } else {
+          this.showButton = false
+        }
+      })
     });
   }
 }

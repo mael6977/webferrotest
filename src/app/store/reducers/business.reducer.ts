@@ -34,8 +34,5 @@ export const BusinessReducer = createReducer(
     establishment,
     audits
   })),
-  on(resetBusiness, (state) => ({
-    ...state,
-    initialBusinessState
-  }))
+  on(resetBusiness, () => (initialBusinessState))
 );

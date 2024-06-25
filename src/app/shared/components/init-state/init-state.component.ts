@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/app.state';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { updateHeaderSurvey } from '../../../store/actions/survey.actions';
 
 @Component({
   selector: 'app-init-state',
@@ -20,13 +21,19 @@ export class InitStateComponent implements OnInit {
   @Input() public dataRequest!: GenericRequest;
   @Output() public optionsSelected: EventEmitter<GenericResponse> = new EventEmitter<GenericResponse>();
   businessInfo$: Observable<any>;
+  authToken$: Observable<any>;
+  infoUser:any;
   public audits: number = 0;
 
   constructor(private store: Store<AppState>) {
     this.businessInfo$ = this.store.select(state => state.business);
+    this.authToken$ = this.store.select(state => state.auth);
   }
 
   ngOnInit(): void {
+    this.authToken$.subscribe(data => {
+      this.infoUser = data;
+    });
     this.businessInfo$.subscribe({
       next: (data) => {
         if (data && data.audits && data.establishment && data.address) {
@@ -35,6 +42,7 @@ export class InitStateComponent implements OnInit {
           this.dataRequest.subTitle = data.address;
           setTimeout(()=>this.selectOption(),1000)
           this.selectOption();
+          this.store.dispatch(updateHeaderSurvey({ establishment: data.id, auditor: this.infoUser.id, distribuitor: data.distribuitor, visit: data.audits.length}))
         } else {
           console.error('Data is incomplete', data);
         }

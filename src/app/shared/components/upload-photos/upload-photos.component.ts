@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { GenericRequest, GenericResponse } from '../../../core/interface/generic.interface';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from '../../../store/app.state';
 
 @Component({
   selector: 'app-upload-photos',
@@ -14,7 +17,8 @@ export class UploadPhotosComponent {
   @ViewChildren('fileInput') fileInputs!: QueryList<any>;
   @Input() public dataRequest!: GenericRequest;
   @Output() public optionsSelected: EventEmitter<GenericResponse> = new EventEmitter<GenericResponse>();
-
+  getStateCountFridge$:Observable<number>;
+  countFridge:number=0;
   defaultImage: string = 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg';
   images: string[] = [
     this.defaultImage,
@@ -22,8 +26,15 @@ export class UploadPhotosComponent {
     this.defaultImage
   ];
 
+  constructor(private store: Store<AppState>) {
+    this.getStateCountFridge$ = this.store.select(state=>state.survey.countFridge);
+  }
+
   ngOnInit() {
-    setTimeout(()=>this.selectOption(),1500)
+    setTimeout(() => this.selectOption(), 1500);
+    this.getStateCountFridge$.subscribe(count=>{
+      this.countFridge = count;
+    });
   }
 
   onImageClick(index: number): void {
@@ -42,16 +53,18 @@ export class UploadPhotosComponent {
     }
   }
 
+  getIdQuestionState():number|undefined{
+    const r = ['5','6','7'].includes(this.dataRequest.numberQuestion!) && this.countFridge===2
+    ?this.dataRequest.idQuestionStateOption2
+    :this.dataRequest.idQuestionStateOption1;
+    return r;
+  }
+
   selectOption(): void {
     const infoOption: GenericResponse = {
-      Question: {
-        id: this.dataRequest.numberQuestion,
-        answer: JSON.stringify([]),
-        comment: '',
-        questionText: this.dataRequest.title,
-      },
-      selectedBusiness: "",
       selectStep: this.dataRequest.nextStep1,
+      id: this.getIdQuestionState(),
+      answer: JSON.stringify([]),
     }
     this.optionsSelected.emit(infoOption);
   }

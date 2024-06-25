@@ -3,6 +3,9 @@ import {
   GenericRequest,
   GenericResponse,
 } from '../../../core/interface/generic.interface';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from '../../../store/app.state';
 
 @Component({
   selector: 'app-check',
@@ -16,9 +19,19 @@ export class CheckComponent {
   @Output() public optionsSelected: EventEmitter<GenericResponse> =
     new EventEmitter<GenericResponse>();
 
+  getStateCountFridge$:Observable<number>;
+  countFridge:number=0;
   public selectedOptions: string[] = [];
 
-  ngOnInit() {}
+  constructor(private store: Store<AppState>) {
+    this.getStateCountFridge$ = this.store.select(state=>state.survey.countFridge);
+  }
+
+  ngOnInit() {
+    this.getStateCountFridge$.subscribe(count=>{
+      this.countFridge = count;
+    });
+}
 
   onCheckboxChange(event: Event, label: string): void {
     const target = event.target as HTMLInputElement;
@@ -29,21 +42,22 @@ export class CheckComponent {
         (option) => option !== label
       );
     }
-    console.log(this.selectedOptions)
     this.selectOption();
   }
 
   selectOption(): void {
     const infoOption: GenericResponse = {
-      Question: {
-        id: this.dataRequest.numberQuestion,
-        answer: JSON.stringify(this.selectedOptions),
-        comment: '',
-        questionText: this.dataRequest.title,
-      },
-      selectedBusiness: '',
       selectStep: this.dataRequest.nextStep1,
+      id: this.getIdQuestionState(),
+      answer: JSON.stringify(this.selectedOptions),
     };
     this.optionsSelected.emit(infoOption);
+  }
+
+  getIdQuestionState():number|undefined{
+    const r = ['5','6','7'].includes(this.dataRequest.numberQuestion!) && this.countFridge===2
+    ?this.dataRequest.idQuestionStateOption2
+    :this.dataRequest.idQuestionStateOption1;
+    return r;
   }
 }

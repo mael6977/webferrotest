@@ -1,20 +1,26 @@
 import { createAction, props } from '@ngrx/store';
-import { Question } from '../reducers/survey.reducer';
 
-export const addQuestion = createAction(
-  '[Survey] Add Question',
-  props<{ question: Question }>()
+export const updateCountFridge = createAction(
+  '[Survey] Update Count Fridge',
+  props<{ countFridge: number }>()
 );
 
-export const updateAnswer = createAction(
-  '[Survey] Update Answer',
-  props<{ id: string; answer: string }>()
+export const updateHeaderSurvey = createAction(
+  '[Survey] Update Header Survey',
+  props<{ establishment:string,auditor:string,distribuitor:string,visit:number}>()
+);
+export const updateResultAudit = createAction(
+  '[Survey] Update Result Audit',
+  props<{result:string, resultComment:string}>()
+);
+export const updateManyAnswer = createAction(
+  '[Survey] Update Many Answer',
+  props<{questions:{ id: number; answer: string}[] }>()
 );
 
-export const updateComment = createAction(
-  '[Survey] Update Comment',
-  props<{ id: string; comment: string }>()
-);
-export const ResetComment = createAction(
+export const resetComment = createAction(
   '[Survey] Reset Suervey'
 );
+
+export const sendAudit = createAction(
+  '[Survey] Send Audit');
