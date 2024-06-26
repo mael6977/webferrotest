@@ -2,8 +2,9 @@ import { CheckComponent } from "../../shared/components/check/check.component";
 import { InitStateComponent } from "../../shared/components/init-state/init-state.component";
 import { SelectQueryComponent } from "../../shared/components/select-query/select-query.component";
 import { SimpleSelectionComponent } from "../../shared/components/simple-selection/simple-selection.component";
+import { TextBoxComponent } from "../../shared/components/text-box/text-box.component";
 import { UploadPhotosComponent } from "../../shared/components/upload-photos/upload-photos.component";
-import { openingQuestionData, fridgePresenceQuestionData, visibilityMaterialQuestionData, fridgeCountQuestionData, productPresenceQuestionData, checkSelectPlaces, initStateData, selectionQueryData, endingQuestionData, uploadPhotosData, checkSelectContent } from "./injection-components-data";
+import { openingQuestionData, fridgePresenceQuestionData, visibilityMaterialQuestionData, fridgeCountQuestionData, productPresenceQuestionData, checkSelectPlaces, initStateData, selectionQueryData, endingQuestionData, uploadPhotosData, checkSelectContent, existeFridgeData, howManyFridgeData, whatBrandIsData } from "./injection-components-data";
 
 export const componentDataSelectionQuery = {
   id: 0,
@@ -69,6 +70,24 @@ export const componentEndingQuestionData = {
   id: 10,
   component: SimpleSelectionComponent,
   data: endingQuestionData
+};
+
+export const componentExisteFridgeData = {
+  id: 11,
+  component: SimpleSelectionComponent,
+  data: existeFridgeData
+};
+
+export const componentHowManyFridgeData = {
+  id: 12,
+  component: TextBoxComponent,
+  data: howManyFridgeData
+};
+
+export const componentWhatBrandIsData = {
+  id: 13,
+  component: TextBoxComponent,
+  data: whatBrandIsData
 };
 
 

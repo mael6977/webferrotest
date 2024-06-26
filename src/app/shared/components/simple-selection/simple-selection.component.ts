@@ -83,7 +83,7 @@ export class SimpleSelectionComponent implements OnInit {
     this.select2 = true;
     this.optionText = optionText;
     this.showTextBox =
-      !this.showTextBox && this.dataRequest.numberQuestion !== '4';
+    !this.showTextBox && this.dataRequest.numberQuestion !== '4' || !this.showTextBox && this.dataRequest.numberQuestion !== '9';
     if (optionText === this.secondOptionText) {
       this.selectedStep = this.dataRequest.nextStep2;
     }
@@ -100,8 +100,18 @@ export class SimpleSelectionComponent implements OnInit {
       this.selectedOption = optionText;
       this.optionsSelected.emit(infoOption);
     }
+    if (this.dataRequest.numberQuestion === '9') {
+      const infoOption: GenericResponse = {
+        selectOption: this.dataRequest.numberQuestion,
+        selectStep: this.dataRequest.nextStep1,
+        prevStep: this.dataRequest.prevStep,
+        id: this.dataRequest.idQuestionStateOption1,
+        answer: this.optionText,
+      };
+      this.selectedOption = optionText;
+      this.optionsSelected.emit(infoOption);
+    }
   }
-
   emit() {
     const infoOption: GenericResponse = {
       selectOption: this.dataRequest.numberQuestion,

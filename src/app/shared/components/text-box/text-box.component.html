@@ -1,0 +1,11 @@
+<div class="text-box">
+  <span aria-hidden="false" class="text-box_icon">{{dataRequest.numberQuestion}}</span>
+  <h1 class="text-box_title">{{dataRequest.title}}</h1>
+  <p class="text-box_subtitle">{{dataRequest.subTitle}}</p>
+  <div class="col-span-full">
+    <label for="Comment" class="block text-sm font-medium leading-6 text-gray-900">Añade un comentario</label>
+    <div class="mt-2">
+      <textarea [(ngModel)]="comment" id="Comment" name="Comment" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" on-focusout="emit()"></textarea>
+    </div>
+  </div>
+</div>

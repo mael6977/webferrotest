@@ -123,7 +123,44 @@ export const endingQuestionData: GenericRequest = {
   subTitle: '¿Todo esta correcto en la revisión?',
   option1: 'SI',
   option2: 'NO',
+  nextStep1: 11,
+  nextStep2: 11,
+  prevStep: 9,
+};
+
+export const existeFridgeData: GenericRequest = {
+  numberQuestion: '9',
+  title: 'Extra',
+  subTitle: '¿Hay neveras de la competencia en la tienda?',
+  option1: 'SI',
+  option2: 'NO',
+  idQuestionStateOption1:17,
+  idQuestionStateOption2:17,
+  nextStep1: 12,
+  nextStep2: 0,
+  prevStep: 10,
+};
+
+export const howManyFridgeData: GenericRequest = {
+  numberQuestion: '10',
+  title: 'Extra',
+  subTitle: '¿Cúantas?',
+  option1: '',
+  option2: '',
+  idQuestionStateOption1:18,
+  nextStep1: 13,
+  nextStep2: 0,
+  prevStep: 11,
+};
+
+export const whatBrandIsData: GenericRequest = {
+  numberQuestion: '11',
+  title: 'Extra',
+  subTitle: '¿Marca?',
+  option1: '',
+  option2: '',
+  idQuestionStateOption1:19,
   nextStep1: 0,
   nextStep2: 0,
-  prevStep: 9,
+  prevStep: 12,
 };

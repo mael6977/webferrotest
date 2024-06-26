@@ -42,7 +42,10 @@ export const initialState: SurveyState = {
     { id: 13, title: "PRODUCTO NEVERA 2", answer: "" },
     { id: 14, title: "PRODUCTO NEVERA 2 COMMENT", answer: "" },
     { id: 15, title: "LUGAR NEVERA 2", answer: "" },
-    { id: 16, title: "FOTOS NEVERA 2", answer: "" }
+    { id: 16, title: "FOTOS NEVERA 2", answer: "" },
+    { id: 17, title: "COMPETENCIA NEVERA PRESENCIA", answer: "" },
+    { id: 18, title: "COMPETENCIA NEVERA CANTIDAD", answer: "" },
+    { id: 19, title: "COMPETENCIA NEVERA MARCA", answer: "" },
   ]
 };
 

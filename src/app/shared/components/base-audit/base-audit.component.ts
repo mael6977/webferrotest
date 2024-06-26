@@ -162,7 +162,7 @@ export class BaseAuditComponent implements OnInit {
       }
 
       if (['1','2'].includes(this.selectOptions?.selectOption!) && this.selectOptions?.answer! === 'NO'
-          || (this.selectOptions?.selectOption! === '8')){
+          || (this.selectOptions?.selectOption! === '11')){
         this.sendToStorageResumen();
         this.store.dispatch(sendAudit());
       }
