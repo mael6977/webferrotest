@@ -25,6 +25,8 @@
     "@ngrx/router-store": "^17.2.0",
     "@ngrx/store": "^17.2.0",
     "@ngrx/store-devtools": "^17.2.0",
+    "dotenv": "^16.4.5",
+    "firebase": "^10.12.2",
     "moment": "^2.30.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

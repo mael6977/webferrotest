@@ -1,20 +1,13 @@
 <div class="upload-photos">
-  <span
-    aria-hidden="false"
-    class="upload-photos_icon"
-    >{{ dataRequest.numberQuestion }}
-  </span>
+  <span aria-hidden="false" class="upload-photos_icon">{{ dataRequest.numberQuestion }}</span>
   <h1 class="upload-photos_title">{{ dataRequest.title }}</h1>
   <p class="upload-photos_subtitle">{{ dataRequest.subTitle }}</p>
+
   <div class="upload-photos_container-images">
     <div class="images-input" *ngFor="let img of images; let i = index">
       <img class="preview" [src]="img" (click)="onImageClick(i)" />
-      <input
-        class="input"
-        #fileInput
-        type="file"
-        (change)="onFileSelected($event, i)"
-      />
+      <input class="input" #fileInput type="file" (change)="onFileSelected($event, i)" />
     </div>
   </div>
+  <mat-spinner diameter="30" *ngIf="loading"></mat-spinner>
 </div>

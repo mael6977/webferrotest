@@ -42,7 +42,8 @@ export class InitStateComponent implements OnInit {
           this.dataRequest.subTitle = data.address;
           setTimeout(()=>this.selectOption(),1000)
           this.selectOption();
-          this.store.dispatch(updateHeaderSurvey({ establishment: data.id, auditor: this.infoUser.id, distribuitor: data.distribuitor, visit: data.audits.length}))
+          console.log("data", data)
+          this.store.dispatch(updateHeaderSurvey({ establishment: data.id, auditor: this.infoUser.id, distribuitor: data.distributor, visit: data.audits.length}))
         } else {
           console.log('Data is incomplete', data);
         }

@@ -7,7 +7,7 @@ export const updateCountFridge = createAction(
 
 export const updateHeaderSurvey = createAction(
   '[Survey] Update Header Survey',
-  props<{ establishment:string,auditor:string,distribuitor:string,visit:number}>()
+  props<{ establishment:string, auditor:string, distribuitor:string, visit:number }>()
 );
 export const updateResultAudit = createAction(
   '[Survey] Update Result Audit',
