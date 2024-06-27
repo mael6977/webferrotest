@@ -52,17 +52,16 @@ export class SimpleSelectionComponent implements OnInit {
   }
 
   getIdQuestionState():number|undefined{
-    const r = ['5','6','7','8'].includes(this.dataRequest.numberQuestion!) && this.countFridge===2
-    ?this.dataRequest.idQuestionStateOption2
-    :this.dataRequest.idQuestionStateOption1;
+    const r = ['6','7','8'].includes(this.dataRequest.numberQuestion!) && this.countFridge === 2 ? this.dataRequest.idQuestionStateOption2 : this.dataRequest.idQuestionStateOption1;
     return r;
+
   }
 
   selectOption1(optionText: string | undefined): void {
-
     this.select1 = true;
     this.select2 = false;
     this.showTextBox = false;
+
     let selectedStep: number | undefined;
     if (optionText === this.firstOptionText) {
       selectedStep = this.dataRequest.nextStep1;
@@ -83,9 +82,11 @@ export class SimpleSelectionComponent implements OnInit {
     this.select2 = true;
     this.optionText = optionText;
     this.showTextBox = this.dataRequest.numberQuestion !== '4' && this.dataRequest.numberQuestion !== '9';
+
     if (optionText === this.secondOptionText) {
       this.selectedStep = this.dataRequest.nextStep2;
     }
+
     if (this.dataRequest.numberQuestion === '4') {
       const infoOption: GenericResponse = {
         selectOption: this.dataRequest.numberQuestion,
@@ -99,6 +100,7 @@ export class SimpleSelectionComponent implements OnInit {
       this.selectedOption = optionText;
       this.optionsSelected.emit(infoOption);
     }
+
     if (this.dataRequest.numberQuestion === '9') {
       const infoOption: GenericResponse = {
         selectOption: this.dataRequest.numberQuestion,
@@ -111,6 +113,7 @@ export class SimpleSelectionComponent implements OnInit {
       this.optionsSelected.emit(infoOption);
     }
   }
+
   emit() {
     const infoOption: GenericResponse = {
       selectOption: this.dataRequest.numberQuestion,
