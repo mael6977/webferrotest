@@ -56,7 +56,6 @@ export class BaseAuditComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.loadComponent();
     this.getStateAnswerCountFridge$.subscribe(data => {
       this.answerCountFridge = Number(data);
@@ -64,6 +63,7 @@ export class BaseAuditComponent implements OnInit {
     this.getStateCountFridge$.subscribe(data => {
       this.countFridge = data;
     });
+
   }
 
   public nextStep() {
@@ -140,8 +140,10 @@ export class BaseAuditComponent implements OnInit {
 
   private sendToStorageResumen(){
     const comment = this.selectOptions?.comment === null || this.selectOptions?.comment === undefined ? "":this.selectOptions?.comment;
-    this.store.dispatch(updateResultAudit({result:this.selectOptions?.answer!,
-      resultComment:comment!}));
+    this.store.dispatch(updateResultAudit({result:this.selectOptions?.answer!,resultComment:comment!}));
+  }
+  private sendToStorageResumenBySimpleSelection(){
+    this.store.dispatch(updateResultAudit({result:this.selectOptions?.answer!, resultComment:this.selectOptions?.comment || ""}));
   }
 
   private loadComponent() {
@@ -150,10 +152,8 @@ export class BaseAuditComponent implements OnInit {
       if (!step) {
         return;
       }
-
       this.currentStepId = step.id;
       this.previousStepId = step.data.prevStep;
-
       if (step.data.numberQuestion === '5') {
         this.sendToStorageCountFridge();
         if (this.countFridge===2){
@@ -162,9 +162,20 @@ export class BaseAuditComponent implements OnInit {
         }
       }
 
-      if (['1','2','9'].includes(this.selectOptions?.selectOption!) && this.selectOptions?.answer! === 'NO'
-          || (this.selectOptions?.selectOption! === '11')){
+      if (['1','2'].includes(this.selectOptions?.selectOption!) && this.selectOptions?.answer! === 'NO'){
         this.sendToStorageResumen();
+        this.store.dispatch(sendAudit());
+      }
+
+      if (this.selectOptions?.selectOption === "8"){
+        this.sendToStorageResumenBySimpleSelection();
+      }
+
+      if((this.selectOptions?.selectOption! === '9' && this.selectOptions?.answer! === 'NO')){
+        this.store.dispatch(sendAudit());
+      }
+
+      if((this.selectOptions?.selectOption! === '11')){
         this.store.dispatch(sendAudit());
       }
 
