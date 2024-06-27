@@ -157,8 +157,12 @@ export class BaseAuditComponent implements OnInit {
       if (step.data.numberQuestion === '5') {
         this.sendToStorageCountFridge();
         if (this.countFridge===2){
+          console.log("se envia a la segunda");
           step.data.idQuestionStateOption1=13;
           step.data.idQuestionStateOption2=14;
+        }else{
+          step.data.idQuestionStateOption1=9;
+          step.data.idQuestionStateOption2=10;
         }
       }
 
