@@ -102,7 +102,7 @@ export class SimpleSelectionComponent implements OnInit {
     if (this.dataRequest.numberQuestion === '9') {
       const infoOption: GenericResponse = {
         selectOption: this.dataRequest.numberQuestion,
-        selectStep: this.dataRequest.nextStep1,
+        selectStep: this.dataRequest.nextStep2,
         prevStep: this.dataRequest.prevStep,
         id: this.dataRequest.idQuestionStateOption1,
         answer: this.optionText,
