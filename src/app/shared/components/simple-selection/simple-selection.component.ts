@@ -82,8 +82,7 @@ export class SimpleSelectionComponent implements OnInit {
     this.select1 = false;
     this.select2 = true;
     this.optionText = optionText;
-    this.showTextBox =
-    !this.showTextBox && this.dataRequest.numberQuestion !== '4' || !this.showTextBox && this.dataRequest.numberQuestion !== '9';
+    this.showTextBox = this.dataRequest.numberQuestion !== '4' && this.dataRequest.numberQuestion !== '9';
     if (optionText === this.secondOptionText) {
       this.selectedStep = this.dataRequest.nextStep2;
     }

@@ -56,6 +56,7 @@ export class BaseAuditComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.loadComponent();
     this.getStateAnswerCountFridge$.subscribe(data => {
       this.answerCountFridge = Number(data);
@@ -161,7 +162,7 @@ export class BaseAuditComponent implements OnInit {
         }
       }
 
-      if (['1','2'].includes(this.selectOptions?.selectOption!) && this.selectOptions?.answer! === 'NO'
+      if (['1','2','9'].includes(this.selectOptions?.selectOption!) && this.selectOptions?.answer! === 'NO'
           || (this.selectOptions?.selectOption! === '11')){
         this.sendToStorageResumen();
         this.store.dispatch(sendAudit());
@@ -170,7 +171,7 @@ export class BaseAuditComponent implements OnInit {
       const ref = this.createDynamicComponent(step.component, step.data);
       this.subscribeToComponentEvents(ref);
       this.getStateVisit$?.subscribe(data => {
-        if (this.currentStepId == 1 && data >= 2) {
+        if (this.currentStepId == 1 && data >= 3) {
           this.showButton = true
         } else {
           this.showButton = false

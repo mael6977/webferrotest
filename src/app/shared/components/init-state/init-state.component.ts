@@ -51,6 +51,7 @@ export class InitStateComponent implements OnInit {
         console.log('Error fetching business info:', error);
       }
     });
+    console.log(this.audits)
   }
 
   selectOption(): void {
@@ -58,6 +59,7 @@ export class InitStateComponent implements OnInit {
       selectStep: 2,
       prevStep: 0
     };
+    console.log(infoOption)
     this.optionsSelected.emit(infoOption);
   }
 }
