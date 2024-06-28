@@ -1,4 +1,3 @@
-import { BusinessReducer } from './app/store/reducers/business.reducer';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { provideStore } from '@ngrx/store';
@@ -12,6 +11,9 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { routes } from './app/app.routes';
 import { surveyReducer } from './app/store/reducers/survey.reducer';
 import { ResourceEffects } from './app/store/effects/resource.effects';
+import { BusinessReducer } from './app/store/reducers/business.reducer';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { importProvidersFrom } from '@angular/core';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -24,5 +26,6 @@ bootstrapApplication(AppComponent, {
       logOnly: true
     }),
     provideRouterStore(),
+    importProvidersFrom(BrowserAnimationsModule),
   ],
 }).catch(err => console.error(err));
