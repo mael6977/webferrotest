@@ -50,8 +50,7 @@
               ],
               "outputHashing": "all",
               "sourceMap": false,
-              "extractLicenses": true,
-              "buildOptimizer": true
+              "extractLicenses": true
             },
             "development": {
               "optimization": false,
