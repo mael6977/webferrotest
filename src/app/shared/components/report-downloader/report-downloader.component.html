@@ -12,5 +12,8 @@
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
   </form>
+  <div class="report-downloader_container-spinner">
+    <mat-spinner diameter="30" *ngIf="loading"/>
+  </div>
   <button class="report-downloader_button" (click)="downloadReport()">Descargar Reporte</button>
 </div>
